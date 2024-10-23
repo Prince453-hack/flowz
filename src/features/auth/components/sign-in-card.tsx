@@ -29,7 +29,9 @@ export const SignInCard = () => {
   });
 
   const onSubmit = (value: z.infer<typeof loginSchema>) => {
-    mutate(value);
+    mutate({
+      json: value,
+    });
   };
 
   return (
