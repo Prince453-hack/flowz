@@ -18,7 +18,13 @@ const AuthLayout = ({ children }: Props) => {
       <div className="mx-auto max-w-screen-2xl p-4">
         <nav className="flex justify-between items-center">
           <div className="flex items-center gap-1">
-            <Image src="/logo.svg" width={50} height={55} alt="Flowz" />
+            <Image
+              src="/logo.svg"
+              width={50}
+              height={55}
+              alt="Flowz"
+              draggable="false"
+            />
             <h1 className="font-semibold text-xl select-none">Flowz</h1>
           </div>
           <Button asChild variant="secondary">
