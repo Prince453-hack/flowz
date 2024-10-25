@@ -24,5 +24,3 @@ const Sidebar = () => {
 };
 
 export default Sidebar;
-
-// 3:57
