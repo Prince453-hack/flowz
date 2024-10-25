@@ -114,7 +114,11 @@ export const SignUpCard = () => {
               )}
             />
 
-            <Button disabled={isPending} size="lg" className="w-full text-lg">
+            <Button
+              disabled={isPending}
+              size="lg"
+              className="w-full text-lg disabled:opacity-75"
+            >
               {isPending ? "Registering..." : "Register"}
             </Button>
           </form>

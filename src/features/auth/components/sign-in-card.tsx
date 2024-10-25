@@ -82,7 +82,11 @@ export const SignInCard = () => {
               )}
             />
 
-            <Button disabled={isPending} size="lg" className="w-full text-lg">
+            <Button
+              disabled={isPending}
+              size="lg"
+              className="w-full text-lg disabled:opacity-75"
+            >
               {isPending ? "Logging..." : "Login"}
             </Button>
           </form>
