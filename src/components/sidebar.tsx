@@ -3,6 +3,7 @@ import Link from "next/link";
 import React from "react";
 import DottedSeparator from "./dotted-separator";
 import { Navigation } from "./navigation";
+import WorkspaceSwitcher from "./workspace-switcher";
 
 const Sidebar = () => {
   return (
@@ -17,6 +18,8 @@ const Sidebar = () => {
         />
         <h1 className="font-semibold text-xl select-none">Flowz</h1>
       </Link>
+      <DottedSeparator className="my-4" />
+      <WorkspaceSwitcher />
       <DottedSeparator className="my-4" />
       <Navigation />
     </aside>
