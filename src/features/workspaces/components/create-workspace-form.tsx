@@ -22,6 +22,7 @@ import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { useCreateWorkspace } from "../api/use-create-workspace";
 import { createWorkspacesSchema } from "../schemas";
+import { cn } from "@/lib/utils";
 
 interface Props {
   onCancel?: () => void;
@@ -154,6 +155,7 @@ export const CreateWorkspaceForm = ({ onCancel }: Props) => {
                 variant="secondary"
                 onClick={onCancel}
                 disabled={isPending}
+                className={cn("disabled:opacity-75", !onCancel && "invisible")}
               >
                 Cancel
               </Button>
