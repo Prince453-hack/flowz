@@ -1,4 +1,5 @@
 import { getCurrent } from "@/features/auth/queries";
+import JoinWorkspaceForm from "@/features/workspaces/components/join-workspace-form";
 import { getWorkspaceInfo } from "@/features/workspaces/queries";
 import { redirect } from "next/navigation";
 
@@ -14,7 +15,13 @@ const page = async ({ params: { workspaceId } }: Props) => {
 
   const workspaceInfo = await getWorkspaceInfo({ workspaceId });
 
-  return <div>{JSON.stringify(workspaceInfo)}</div>;
+  if (!workspaceInfo) redirect("/");
+
+  return (
+    <div className="w-full lg:max-w-xl">
+      <JoinWorkspaceForm initialValue={workspaceInfo} />
+    </div>
+  );
 };
 
 export default page;
