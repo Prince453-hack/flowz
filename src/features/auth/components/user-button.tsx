@@ -1,15 +1,15 @@
 "use client";
 
+import DottedSeparator from "@/components/dotted-separator";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
-import { useCurrent } from "../api/use-current";
-import { Loader, LogOut } from "lucide-react";
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import DottedSeparator from "@/components/dotted-separator";
+import { Loader, LogOut } from "lucide-react";
+import { useCurrent } from "../api/use-current";
 import { useLogout } from "../api/use-logout";
 
 export const UserButton = () => {
@@ -63,7 +63,7 @@ export const UserButton = () => {
         <DottedSeparator className="mb-1" />
         <DropdownMenuItem
           onClick={() => logout()}
-          className="h-10 flex items-center justify-center text-amber-700 font-medium cursor-pointer"
+          className="h-10 flex items-center justify-center text-red-500 font-medium cursor-pointer"
         >
           <LogOut className="size-4 mr-2" />
           Logout
