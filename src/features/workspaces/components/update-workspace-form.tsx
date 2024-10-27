@@ -27,6 +27,7 @@ import { useUpdateWorkspace } from "../api/use-update-workspace";
 import { updateWorkspaceSchema } from "../schemas";
 import { Workspace } from "../types";
 import { toast } from "sonner";
+import { useResetInviteCode } from "../api/use-reset-invite-code";
 
 interface Props {
   onCancel?: () => void;
@@ -43,8 +44,16 @@ export const UpdateWorkspaceForm = ({ onCancel, initialValues }: Props) => {
     "destructive"
   );
 
+  const [ResetDialog, confirmReset] = useConfirm(
+    "Reset Invite Code",
+    "This will invalidate the current invite code and generate a new one. Are you sure you want to proceed?",
+    "destructive"
+  );
+
   const { mutate: deleteWorkspace, isPending: isDeletingWorkspace } =
     useDeleteWorkspace();
+  const { mutate: resetInviteCode, isPending: isResettingInviteCode } =
+    useResetInviteCode();
 
   const form = useForm<z.infer<typeof updateWorkspaceSchema>>({
     resolver: zodResolver(updateWorkspaceSchema),
@@ -95,6 +104,20 @@ export const UpdateWorkspaceForm = ({ onCancel, initialValues }: Props) => {
     );
   };
 
+  const handleResetInviteCode = async () => {
+    const ok = await confirmReset();
+    if (!ok) return;
+
+    resetInviteCode(
+      { param: { workspaceId: initialValues.$id } },
+      {
+        onSuccess: () => {
+          router.refresh();
+        },
+      }
+    );
+  };
+
   const handleCopyInviteLink = () => {
     navigator.clipboard
       .writeText(fullInviteLink)
@@ -104,6 +127,7 @@ export const UpdateWorkspaceForm = ({ onCancel, initialValues }: Props) => {
   return (
     <div className="flex flex-col gap-y-4">
       <DeleteDialog />
+      <ResetDialog />
       <Card className="w-full h-full border-none shadow-none">
         <CardHeader className="flex flex-row items-center gap-x-4 p-7 space-y-0">
           <Button
@@ -271,8 +295,8 @@ export const UpdateWorkspaceForm = ({ onCancel, initialValues }: Props) => {
             size="sm"
             variant="destructive"
             type="button"
-            disabled={isPending || isDeletingWorkspace}
-            onClick={handleDelete}
+            disabled={isPending || isResettingInviteCode}
+            onClick={handleResetInviteCode}
           >
             Reset Invite Link
           </Button>
