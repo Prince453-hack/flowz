@@ -41,9 +41,18 @@ const MembersList = () => {
     });
   };
 
-  const handleDeleteMember = async () => {
+  const handleDeleteMember = async (memberId: string) => {
     const ok = await confirm();
     if (!ok) return;
+
+    deleteMember(
+      { param: { memberId } },
+      {
+        onSuccess: () => {
+          window.location.reload();
+        },
+      }
+    );
   };
 
   return (
@@ -83,22 +92,26 @@ const MembersList = () => {
                 <DropdownMenuContent side="bottom" align="end">
                   <DropdownMenuItem
                     className="font-medium"
-                    onClick={() => {}}
-                    disabled={false}
+                    onClick={() =>
+                      handleUpdateMember(member.$id, MemberRole.ADMIN)
+                    }
+                    disabled={isUpdatingMember}
                   >
                     Set as Administrator
                   </DropdownMenuItem>
                   <DropdownMenuItem
                     className="font-medium"
-                    onClick={() => {}}
-                    disabled={false}
+                    onClick={() =>
+                      handleUpdateMember(member.$id, MemberRole.MEMBER)
+                    }
+                    disabled={isUpdatingMember}
                   >
                     Set as Member
                   </DropdownMenuItem>
                   <DropdownMenuItem
                     className="font-medium text-red-700"
-                    onClick={() => {}}
-                    disabled={false}
+                    onClick={() => handleDeleteMember(member.$id)}
+                    disabled={isUpdatingMember}
                   >
                     Remove {member.name}
                   </DropdownMenuItem>
