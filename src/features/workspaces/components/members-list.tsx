@@ -55,7 +55,27 @@ const MembersList = () => {
                   </Button>
                 </DropdownMenuTrigger>
                 <DropdownMenuContent side="bottom" align="end">
-                  <DropdownMenuItem>Set as Administrator</DropdownMenuItem>
+                  <DropdownMenuItem
+                    className="font-medium"
+                    onClick={() => {}}
+                    disabled={false}
+                  >
+                    Set as Administrator
+                  </DropdownMenuItem>
+                  <DropdownMenuItem
+                    className="font-medium"
+                    onClick={() => {}}
+                    disabled={false}
+                  >
+                    Set as Member
+                  </DropdownMenuItem>
+                  <DropdownMenuItem
+                    className="font-medium text-red-700"
+                    onClick={() => {}}
+                    disabled={false}
+                  >
+                    Remove {member.name}
+                  </DropdownMenuItem>
                 </DropdownMenuContent>
               </DropdownMenu>
             </div>
