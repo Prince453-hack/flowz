@@ -1,28 +1,54 @@
 "use client";
 
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { useWorkspaceId } from "../hooks/use-workspace-id";
-import { Button } from "@/components/ui/button";
-import { ArrowLeftIcon, MoreVerticalIcon } from "lucide-react";
-import Link from "next/link";
 import DottedSeparator from "@/components/dotted-separator";
-import { useGetMembers } from "@/features/members/api/use-get-members";
-import { Fragment } from "react";
-import { MemberAvatar } from "@/features/members/components/member-avatar";
-import { Separator } from "@/components/ui/separator";
+import { Button } from "@/components/ui/button";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import { Separator } from "@/components/ui/separator";
+import { useDeleteMember } from "@/features/members/api/use-delete-member";
+import { useGetMembers } from "@/features/members/api/use-get-members";
+import { useUpdateMember } from "@/features/members/api/use-update-member";
+import { MemberAvatar } from "@/features/members/components/member-avatar";
+import { MemberRole } from "@/features/members/types";
+import { useConfirm } from "@/hooks/use-confirm";
+import { ArrowLeftIcon, MoreVerticalIcon } from "lucide-react";
+import Link from "next/link";
+import { Fragment } from "react";
+import { useWorkspaceId } from "../hooks/use-workspace-id";
 
 const MembersList = () => {
   const workspaceId = useWorkspaceId();
+  const [ConfirmDialog, confirm] = useConfirm(
+    "Remove Member",
+    "This member will be removed from the workspace",
+    "destructive"
+  );
   const { data } = useGetMembers({ workspaceId });
+  const { mutate: deleteMember, isPending: isDeletingMember } =
+    useDeleteMember();
+  const { mutate: updateMember, isPending: isUpdatingMember } =
+    useUpdateMember();
+
+  const handleUpdateMember = (memberId: string, role: MemberRole) => {
+    updateMember({
+      json: { role },
+      param: { memberId },
+    });
+  };
+
+  const handleDeleteMember = async () => {
+    const ok = await confirm();
+    if (!ok) return;
+  };
 
   return (
     <Card className="w-full h-full border-none shadow-none">
+      <ConfirmDialog />
       <CardHeader className="flex flex-row items-center gap-x-4 p-7 space-y-0">
         <Button variant="secondary" size="sm" asChild>
           <Link href={`/workspaces/${workspaceId}`}>
