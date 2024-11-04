@@ -17,8 +17,6 @@ const ProjectIdPage = async ({ params: { projectId } }: Props) => {
 
   const initialValues = await getProject({ projectId });
 
-  if (!initialValues) throw new Error("Project not found");
-
   return (
     <div className="flex flex-col gap-y-4">
       <div className="flex items-center justify-between">

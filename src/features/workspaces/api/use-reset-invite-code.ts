@@ -14,6 +14,7 @@ type RequestType = InferRequestType<
 
 export const useResetInviteCode = () => {
   const queryClient = useQueryClient();
+  const router = useRouter();
 
   const mutation = useMutation<ResponseType, Error, RequestType>({
     mutationFn: async ({ param }) => {
@@ -29,6 +30,8 @@ export const useResetInviteCode = () => {
     },
     onSuccess: ({ data }) => {
       toast.success("Invite code reset successfully");
+
+      router.refresh();
       queryClient.invalidateQueries({ queryKey: ["workspaces"] });
       queryClient.invalidateQueries({ queryKey: ["workspaces", data.$id] });
     },
