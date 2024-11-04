@@ -25,7 +25,8 @@ const Projects = () => {
         />
       </div>
       {data?.documents.map((project) => {
-        const href = `/workspaces/${workspaceId}/projects//${project.$id}`;
+        const href = `/workspaces/${workspaceId}/projects/${project.$id}`;
+
         const isActive = pathname === href;
 
         return (
@@ -47,5 +48,3 @@ const Projects = () => {
 };
 
 export default Projects;
-
-//10:
