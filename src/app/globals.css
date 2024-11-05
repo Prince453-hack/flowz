@@ -6,6 +6,19 @@ body {
   font-family: Arial, Helvetica, sans-serif;
 }
 
+::-webkit-scrollbar {
+  width: 5px;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: #d4bee4;
+  border-radius: 2px;
+}
+
+::-webkit-scrollbar-track {
+  background-color: #fff;
+}
+
 .hide-scrollbar {
   -ms-overflow-style: none;
   scrollbar-width: none;
