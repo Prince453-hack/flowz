@@ -1,4 +1,4 @@
-import { DATABASE_ID, PROJECT_ID, TASKS_ID } from "@/config";
+import { DATABASE_ID, MEMBERS_ID, PROJECT_ID, TASKS_ID } from "@/config";
 import { getMember } from "@/features/members/utils";
 import { Project } from "@/features/projects/types";
 import { createAdminClient } from "@/lib/appwrite";
@@ -144,7 +144,7 @@ const app = new Hono()
 
       const members = await databases.listDocuments<Project>(
         DATABASE_ID,
-        PROJECT_ID,
+        MEMBERS_ID,
         assigneeIds.length > 0 ? [Query.contains("$id", assigneeIds)] : []
       );
 
@@ -161,9 +161,9 @@ const app = new Hono()
           (project) => project.$id === task.projectId
         );
 
-        const assignee =
-          assignees.find((assignee) => assignee.$id === task.assigneeId) ||
-          null;
+        const assignee = assignees.find(
+          (assignee) => assignee.$id === task.assigneeId
+        );
 
         return { ...task, project, assignee };
       });
