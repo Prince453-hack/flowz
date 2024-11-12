@@ -8,7 +8,7 @@ import { Hono } from "hono";
 import { ID, Query } from "node-appwrite";
 import { z } from "zod";
 import { createTaskSchema } from "../schemas";
-import { TaskStatus } from "../types";
+import { Task, TaskStatus } from "../types";
 
 const app = new Hono()
   .post(
@@ -127,10 +127,14 @@ const app = new Hono()
         query.push(Query.search("name", search));
       }
 
-      const tasks = await databases.listDocuments(DATABASE_ID, TASKS_ID, query);
+      const tasks = await databases.listDocuments<Task>(
+        DATABASE_ID,
+        TASKS_ID,
+        query
+      );
 
       const projectIds = tasks.documents.map((task) => task.projectId);
-      const assigeeIds = tasks.documents.map((task) => task.assigeeId);
+      const assigneeIds = tasks.documents.map((task) => task.assigneeId);
 
       const projects = await databases.listDocuments<Project>(
         DATABASE_ID,
@@ -141,7 +145,7 @@ const app = new Hono()
       const members = await databases.listDocuments<Project>(
         DATABASE_ID,
         PROJECT_ID,
-        assigeeIds.length > 0 ? [Query.contains("$id", assigeeIds)] : []
+        assigneeIds.length > 0 ? [Query.contains("$id", assigneeIds)] : []
       );
 
       const assignees = await Promise.all(
@@ -157,9 +161,9 @@ const app = new Hono()
           (project) => project.$id === task.projectId
         );
 
-        const assignee = assignees.find(
-          (assignee) => assignee.$id === task.assigeeId
-        );
+        const assignee =
+          assignees.find((assignee) => assignee.$id === task.assigneeId) ||
+          null;
 
         return { ...task, project, assignee };
       });
