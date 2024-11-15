@@ -20,6 +20,10 @@ body {
   background-color: #fff;
 }
 
+::selection {
+  background-color: #c9e6f0;
+}
+
 .hide-scrollbar {
   -ms-overflow-style: none;
   scrollbar-width: none;
