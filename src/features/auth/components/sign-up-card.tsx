@@ -139,7 +139,7 @@ export const SignUpCard = () => {
           onClick={() => signUpWithGoogle()}
         >
           <FcGoogle className="mr-2 size-5" />
-          Login with Google
+          SignUp with Google
         </Button>
         <Button
           variant="secondary"
@@ -149,7 +149,7 @@ export const SignUpCard = () => {
           onClick={() => signUpWithGithub()}
         >
           <FaGithub className="mr-2 size-5" />
-          Login with Github
+          SignUp with Github
         </Button>
       </CardContent>
     </Card>
