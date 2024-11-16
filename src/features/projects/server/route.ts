@@ -91,6 +91,30 @@ export const app = new Hono()
       return c.json({ data: projects });
     }
   )
+  .get("/:projectId", sessionMiddleware, async (c) => {
+    const user = c.get("user");
+    const databases = c.get("databases");
+    const { projectId } = c.req.param();
+
+    const project = await databases.getDocument<Project>(
+      DATABASE_ID,
+      PROJECT_ID,
+      projectId
+    );
+
+    const member = await getMember({
+      databases,
+      workspaceId: project.workspaceId,
+      userId: user.$id,
+    });
+
+    if (!member) {
+      return c.json({ error: "Unauthorized" }, 401);
+    }
+
+    console.log(project);
+    return c.json({ data: project });
+  })
   .patch(
     "/:projectId",
     sessionMiddleware,
