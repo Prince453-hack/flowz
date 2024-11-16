@@ -1,5 +1,6 @@
 "use client";
 
+import { DatePicker } from "@/components/data-picker";
 import DottedSeparator from "@/components/dotted-separator";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -12,15 +13,6 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { useWorkspaceId } from "@/features/workspaces/hooks/use-workspace-id";
-import { cn } from "@/lib/utils";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { useRouter } from "next/navigation";
-import { useForm } from "react-hook-form";
-import { z } from "zod";
-import { useCreateTask } from "../api/use-create-task";
-import { createTaskSchema } from "../schemas";
-import { DatePicker } from "@/components/data-picker";
 import {
   Select,
   SelectContent,
@@ -29,8 +21,15 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { MemberAvatar } from "@/features/members/components/member-avatar";
-import { TaskStatus } from "../types";
 import { ProjectAvatar } from "@/features/projects/components/project-avatar";
+import { useWorkspaceId } from "@/features/workspaces/hooks/use-workspace-id";
+import { cn } from "@/lib/utils";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useForm } from "react-hook-form";
+import { z } from "zod";
+import { useCreateTask } from "../api/use-create-task";
+import { createTaskSchema } from "../schemas";
+import { TaskStatus } from "../types";
 
 interface Props {
   onCancel?: () => void;
@@ -44,7 +43,6 @@ export const CreateTaskForm = ({
   projectOptions,
 }: Props) => {
   const workspaceId = useWorkspaceId();
-  const router = useRouter();
   const { mutate, isPending } = useCreateTask();
 
   const form = useForm<z.infer<typeof createTaskSchema>>({
