@@ -5,10 +5,11 @@ import { useWorkspaceId } from "@/features/workspaces/hooks/use-workspace-id";
 import { cn } from "@/lib/utils";
 import { useRouter } from "next/navigation";
 import { TaskStatus } from "../types";
+import { Member } from "@/features/members/types";
 
 interface Props {
   title: string;
-  assignee: any;
+  assignee: Member;
   project: Project;
   status: TaskStatus;
   id: string;

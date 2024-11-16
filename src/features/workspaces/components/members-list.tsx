@@ -111,7 +111,7 @@ const MembersList = () => {
                   <DropdownMenuItem
                     className="font-medium text-red-700"
                     onClick={() => handleDeleteMember(member.$id)}
-                    disabled={isUpdatingMember}
+                    disabled={isUpdatingMember || isDeletingMember}
                   >
                     Remove {member.name}
                   </DropdownMenuItem>

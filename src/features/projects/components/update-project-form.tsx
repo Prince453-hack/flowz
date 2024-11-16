@@ -22,10 +22,10 @@ import { useRouter } from "next/navigation";
 import React, { useRef } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
+import { useDeleteProject } from "../api/use-delete-project";
 import { useUpdateProject } from "../api/use-update-project";
 import { updateProjectSchema } from "../schemas";
 import { Project } from "../types";
-import { useDeleteProject } from "../api/use-delete-project";
 
 interface Props {
   onCancel?: () => void;
@@ -246,7 +246,7 @@ export const UpdateProjectForm = ({ onCancel, initialValues }: Props) => {
             size="sm"
             variant="destructive"
             type="button"
-            disabled={isPending}
+            disabled={isPending || isDeletingProject}
             onClick={handleDelete}
           >
             Delete Project
