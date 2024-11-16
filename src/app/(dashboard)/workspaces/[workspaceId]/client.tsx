@@ -186,9 +186,7 @@ export const MembersList = ({
                 <CardContent className="p-3 flex flex-col items-center gap-x-2">
                   <MemberAvatar name={member.name} className="size-12" />
                   <div className="flex flex-col items-center overflow-hidden">
-                    <p className="text-lg font-medium line-clamp-1">
-                      {member.name}
-                    </p>
+                    <p className="font-medium line-clamp-1">{member.name}</p>
                     <p className="text-sm text-muted-foreground line-clamp-1">
                       {member.email}
                     </p>
