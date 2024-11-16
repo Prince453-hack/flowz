@@ -152,7 +152,11 @@ const app = new Hono()
         members.documents.map(async (member) => {
           const user = await users.get(member.userId);
 
-          return { ...member, name: user.name, email: user.email };
+          return {
+            ...member,
+            name: user.name || user.email,
+            email: user.email,
+          };
         })
       );
 
@@ -276,7 +280,11 @@ const app = new Hono()
 
     const user = await users.get(member.userId);
 
-    const assignee = { ...member, name: user.name, email: user.email };
+    const assignee = {
+      ...member,
+      name: user.name || user.email,
+      email: user.email,
+    };
 
     return c.json({ data: { ...task, project, assignee } });
   })
