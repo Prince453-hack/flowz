@@ -1,10 +1,13 @@
 import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
 
-const rest = process.env.REST_API_URL;
+const rest = "49.205.xx.xx";
 
 export function middleware(request: NextRequest) {
-  const ip = request.ip ?? "unknown";
+  const forwardedFor = request.headers.get("x-forwarded-for");
+  const ip = forwardedFor?.split(",")[0] || "unknown";
+
+  console.log("Detected IP:", ip);
 
   if (ip !== rest) {
     return new NextResponse(
