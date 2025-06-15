@@ -12,7 +12,7 @@ export function middleware(request: NextRequest) {
   if (ip !== rest) {
     return new NextResponse(
       `<html><body style="font-family:sans-serif;text-align:center;padding:60px">
-        <h1>⚠️ An unexpected error occurred in the Server Components render.</h1>
+        <h1>An unexpected error occurred in the Server Components render.</h1>
         <p>The specific message is hidden in production builds.</p>
         <p>Error digest: 1729477121</p>
       </body></html>`,
