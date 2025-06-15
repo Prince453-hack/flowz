@@ -1,4 +1,9 @@
-/** @type {import('next').NextConfig} */
-const nextConfig = {};
-
-export default nextConfig;
+// next.config.mjs
+export default {
+  experimental: {
+    serverActions: true,
+  },
+  env: {
+    REST_API_URL: process.env.REST_API_URL,
+  },
+};
